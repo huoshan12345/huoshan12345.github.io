@@ -1,0 +1,21 @@
+baseURL = "https://huoshan12345.github.io/"
+languageCode = "zh-cn"
+title = "huoshan12345's blog"
+theme = "PaperMod"
+
+defaultContentLanguage = "zh"
+
+[languages.en]
+contentDir = "content/en"
+locale = "en"
+label = "English"
+
+[languages.zh]
+contentDir = "content/zh"
+locale = "zh"
+label = "中文"
+
+[params]
+defaultTheme = "auto"
+showReadingTime = true
+showToc = true
