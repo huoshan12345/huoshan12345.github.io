@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://huoshan12345.github.io/sitemap.xml
