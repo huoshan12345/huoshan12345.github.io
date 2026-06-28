@@ -1,21 +1,65 @@
 baseURL = "https://huoshan12345.github.io/"
-languageCode = "zh-cn"
 title = "huoshan12345's blog"
-theme = "PaperMod"
+theme = "blowfish"
 
-defaultContentLanguage = "zh"
+defaultContentLanguage = "en"
+enableRobotsTXT = true
+
+[pagination]
+pagerSize = 10
+
+# -------------------------
+# Languages
+# -------------------------
+[languages]
 
 [languages.en]
+languageName = "English"
+weight = 1
 contentDir = "content/en"
-locale = "en"
-label = "English"
+languageCode = "en"
+
+[languages.en.params]
+displayName = "EN"
 
 [languages.zh]
+languageName = "中文"
+weight = 2
 contentDir = "content/zh"
-locale = "zh"
-label = "中文"
+languageCode = "zh"
 
+[languages.zh.params]
+displayName = "中文"
+
+# -------------------------
+# Global Params (Blowfish)
+# -------------------------
 [params]
-defaultTheme = "auto"
-showReadingTime = true
-showToc = true
+
+mainSections = ["posts"]
+
+# 主题外观
+colorScheme = "blowfish"
+defaultAppearance = "light"
+enableSearch = true
+enableCodeCopy = true
+
+# -------------------------
+# Article Layout
+# -------------------------
+[params.article]
+
+# 文章最大宽度（解决你说的“太窄”）
+maxWidth = "1200px"
+
+# 是否显示文章标题（避免重复 H1 + title）
+showTitle = true
+
+# 是否显示目录
+toc = true
+
+# -------------------------
+# Optional SEO / UX
+# -------------------------
+[params.homepage]
+layout = "list"   # 可选：profile / page / list
