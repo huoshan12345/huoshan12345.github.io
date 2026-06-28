@@ -14,19 +14,19 @@ pagerSize = 10
 [languages]
 
 [languages.en]
-languageName = "English"
+label = "English"
 weight = 1
 contentDir = "content/en"
-languageCode = "en"
+locale = "en"
 
 [languages.en.params]
 displayName = "EN"
 
 [languages.zh]
-languageName = "中文"
+label = "中文"
 weight = 2
 contentDir = "content/zh"
-languageCode = "zh"
+locale = "zh-CN"
 
 [languages.zh.params]
 displayName = "中文"
@@ -49,9 +49,6 @@ enableCodeCopy = true
 # -------------------------
 [params.article]
 
-# 文章最大宽度（解决你说的“太窄”）
-maxWidth = "1200px"
-
 # 是否显示文章标题（避免重复 H1 + title）
 showTitle = true
 
@@ -62,4 +59,6 @@ toc = true
 # Optional SEO / UX
 # -------------------------
 [params.homepage]
-layout = "list"   # 可选：profile / page / list
+layout = "page"   # 可选：page / profile / hero / card / background / custom
+showRecent = true
+showRecentItems = 10

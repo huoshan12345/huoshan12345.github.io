@@ -12,8 +12,6 @@ categories: ["engineering"]
 summary: "记录一次 OpenClash 导致 ChatGPT 网页严重卡顿的完整排查过程，覆盖 DNS、HAR 分析、nftables 规则与 TCP 指纹定位。"
 ---
 
-# 排查 OpenClash 把 ChatGPT 拖慢到不能用的全过程：从 DNS 到 TCP 指纹的一次硬核 debug
-
 ## 起因
 
 事情的开头很简单：用了 OpenClash 之后，ChatGPT 网页变得特别慢。具体表现是页面上几十个、几百个请求几乎全部卡住，随便一个静态资源都要等十几秒到一分多钟。但奇怪的是：

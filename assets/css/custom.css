@@ -1,0 +1,50 @@
+.article-content,
+#single_header,
+article > footer.max-w-prose {
+  width: min(100%, 900px);
+  max-width: min(100%, 900px);
+}
+
+.article-content pre,
+.article-content table {
+  max-width: 100%;
+}
+
+.home-posts {
+  width: min(100%, 900px);
+  margin-top: 2.25rem;
+}
+
+.home-posts > .space-y-10 > :not(:last-child) {
+  margin-block-end: 0;
+}
+
+.home-posts .article-link--simple {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(var(--color-neutral-200), 1);
+}
+
+.home-posts .article-link--simple:first-child {
+  border-top: 1px solid rgba(var(--color-neutral-200), 1);
+}
+
+.home-posts .article-link--simple > div:first-of-type {
+  margin-top: 0;
+}
+
+.home-posts .article-link--simple a h2 {
+  margin: 0;
+  line-height: 1.35;
+}
+
+.home-posts .article-link--simple:hover a h2 {
+  color: rgba(var(--color-primary-600), 1);
+}
+
+.home-posts .article-link--simple .text-sm {
+  margin-top: 0.25rem;
+}
+
+.dark .home-posts .article-link--simple {
+  border-color: rgba(var(--color-neutral-700), 1);
+}
