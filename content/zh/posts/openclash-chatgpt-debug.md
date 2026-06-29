@@ -265,26 +265,6 @@ exit 0
 
 这里有必要先把"Cloudflare 到底在哪一步看到指纹"这件事说清楚，不然容易得出错误的推论。Cloudflare 的服务器只能看到**直接跟它握手的那一方**发过来的包——TCP/IP 这一层不会传递"这个包之前经过了哪些中间节点"的信息，每一跳都是独立的连接。也就是说，指纹采集发生在"最后一跳"，即直接与 Cloudflare 建立 TCP 连接的那台机器。
 
-三种场景下，"最后一跳"分别是谁，一图就能看清楚：
-
-```mermaid
-graph LR
-    subgraph 场景1:直连+本地Clash转发
-    A1[Chrome<br/>声称Windows] -->|nftables REDIRECT| B1[Clash进程<br/>路由器Linux内核]
-    B1 -->|新建TCP连接<br/>TTL=64,指纹=Linux| C1[Cloudflare]
-    end
-    subgraph 场景2:走代理节点+本地Clash转发
-    A2[Chrome<br/>声称Windows] -->|nftables REDIRECT| B2[Clash进程<br/>路由器Linux内核]
-    B2 -->|加密隧道| D2[远端代理服务器]
-    D2 -->|新建TCP连接<br/>指纹=远端服务器自己的系统| C2[Cloudflare]
-    end
-    subgraph 场景3:浏览器层代理 v2rayN
-    A3[Chrome<br/>声称Windows] -->|本地SOCKS/HTTP代理| E3[v2rayN<br/>Windows本机进程]
-    E3 -->|加密隧道| D3[远端代理服务器]
-    D3 -->|新建TCP连接<br/>指纹=远端服务器自己的系统| C3[Cloudflare]
-    end
-```
-
 场景 1 就是文章正文实锤验证过的情况：本地路由器上的 Clash 进程直接和 Cloudflare 握手，指纹是 Linux 路由器的，跟应用层声称的 Windows 不一致。场景 2 和场景 3 里，真正和 Cloudflare 握手的都是远端代理服务器，这一步跟本地路由器、跟 Clash 完全没关系——按这个逻辑推，这两种场景理应都不会触发"本地指纹不一致"这个特定问题。
 
 但这里需要纠正一处推理：**排除了"指纹不一致"这一个诱因，并不等于"不会被限速"**。限速可能由不止一种原因触发，我们只验证了其中一种，并不能反过来证明走代理节点时不存在别的诱因。实测下来，情况确实如此：

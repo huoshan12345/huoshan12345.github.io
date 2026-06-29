@@ -265,26 +265,6 @@ This bypass works by making traffic avoid Clash entirely, so it only applies whe
 
 It is worth being precise about where Cloudflare sees the fingerprint. Cloudflare only sees packets from the machine that directly establishes the TCP connection to it. TCP/IP does not preserve "which machines this packet passed through" across hops. Each hop is a separate connection. So fingerprinting happens at the final hop, the machine that directly connects to Cloudflare.
 
-The three scenarios look like this:
-
-```mermaid
-graph LR
-    subgraph Scenario 1: direct plus local Clash forwarding
-    A1[Chrome<br/>claims Windows] -->|nftables REDIRECT| B1[Clash process<br/>router Linux kernel]
-    B1 -->|new TCP connection<br/>TTL=64, fingerprint=Linux| C1[Cloudflare]
-    end
-    subgraph Scenario 2: proxy node plus local Clash forwarding
-    A2[Chrome<br/>claims Windows] -->|nftables REDIRECT| B2[Clash process<br/>router Linux kernel]
-    B2 -->|encrypted tunnel| D2[remote proxy server]
-    D2 -->|new TCP connection<br/>fingerprint=remote server's own OS| C2[Cloudflare]
-    end
-    subgraph Scenario 3: browser-level proxy with v2rayN
-    A3[Chrome<br/>claims Windows] -->|local SOCKS/HTTP proxy| E3[v2rayN<br/>Windows local process]
-    E3 -->|encrypted tunnel| D3[remote proxy server]
-    D3 -->|new TCP connection<br/>fingerprint=remote server's own OS| C3[Cloudflare]
-    end
-```
-
 Scenario 1 is the one proven in this post: the Clash process on the local router connects directly to Cloudflare, so Cloudflare sees the Linux router's fingerprint, which does not match the Windows browser identity. In scenarios 2 and 3, the machine that connects to Cloudflare is the remote proxy server. That final hop is unrelated to the local router or local Clash process. Based on this logic, those scenarios should not trigger this specific local fingerprint mismatch.
 
 But there is an important correction: **ruling out this one fingerprint mismatch does not mean there will be no throttling.** Throttling can be triggered by more than one signal. I only verified one of them, and that does not prove proxy-node traffic has no other risk signal. In practice:
